@@ -58,11 +58,10 @@ public class UiController : MonoBehaviour
 
     public event Action GraphicFrameUpdate;
 
-    public bool ReadData(out double Fm, out double Rm, out double JetS, out double JetM, out double Hstart, out vect G,out double MaxFF, out double Ls, out double delta)
+    public bool ReadData(out double Fm, out double Rm, out double JetS, out double JetM, out double Hstart, out double G,out double MaxFF, out double Ls, out double delta)
     {
         bool res = true;
-        G = new vect();
-        if (!double.TryParse(Gravity.text ,out G.y)) res = false;
+        if (!double.TryParse(Gravity.text ,out G)) res = false;
         if (!double.TryParse(Fuel.text, out Fm)) res = false;
         if (!double.TryParse(RocketMass.text, out Rm)) res = false;
         if (!double.TryParse(jetSpeed.text, out JetS)) res = false;
