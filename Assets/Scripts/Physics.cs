@@ -6,20 +6,20 @@ using UnityEngine;
 
 public class Fisics : MonoBehaviour 
 {
-    float m;        //Масса корпуса ракеты
-    float f;        //Масса топлива
-    float jetM;     //Масса выбрасываемого вещества
-    float jetV;     //Скорость выбрасываемого вещества
-    float StartH;   //Начальная высота
-    vect G;      //Ускорение свободного падения
-    float LandV;    //Допустимая корость посадки
+    float m;
+    float f;       
+    float jetM;
+    float jetV;  
+    float StartH;
+    vect G; 
+    float LandV;
     float Fps;
 
-    vect accel;  //Ускорение
-    float trust;    //Тяга
-    vect v;        //Скорость
-    float h;        //Высота
-    float a;        //Угол наклона
+    vect accel;
+    float trust;    
+    vect v;      
+    float h;
+    float a;   
 
     Timer timer;
 }
