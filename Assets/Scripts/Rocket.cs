@@ -5,14 +5,11 @@ using UnityEngine;
 public class Rocket : MonoBehaviour
 {
     float StartHeght;
+    public double V = 0;
+    public double a = 0;
+
     private void Start()
     {
         StartHeght = transform.position.y;
     }
-
-    void move(double MaxH, double h)
-    {
-        float d = ((float)MaxH / StartHeght);
-        transform.position = new Vector3(0,(float)h / d, 0);
-    }    
 }

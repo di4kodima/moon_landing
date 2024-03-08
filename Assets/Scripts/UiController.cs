@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
@@ -27,6 +28,12 @@ public class UiController : MonoBehaviour
     TMP_InputField LandingSpeed;
     [SerializeField]
     TMP_InputField delta_input;
+
+    [SerializeField]
+    TMP_Text out_speed;
+
+    [SerializeField]
+    TMP_Text out_accel;
 
 
     double Rm;
@@ -56,6 +63,9 @@ public class UiController : MonoBehaviour
         pause
     }
 
+    [SerializeField]
+    private Rocket rocket;
+
     public event Action GraphicFrameUpdate;
 
     public bool ReadData(out double Fm, out double Rm, out double JetS, out double JetM, out double Hstart, out double G,out double MaxFF, out double Ls, out double delta)
@@ -76,7 +86,7 @@ public class UiController : MonoBehaviour
 
     public void SceneStart()
     {
-        if (status == Status.off)
+        if (status == Status.off || status == Status.pause)
             if(ReadData(out Fm, out Rm, out jetV, out jetM, out Hstart, out G, out MaxFF, out Lv, out delta))
             {
                 status = Status.work;
@@ -85,11 +95,22 @@ public class UiController : MonoBehaviour
             }
     }
 
+    public void ScenePause()
+    {
+        if (status == Status.pause) {
+            SceneStart();
+            return;
+        }
+        status = Status.pause;
+    }
+
     IEnumerator PhysicFrame(float delay)
     {
         if (status == Status.off || status == Status.pause) {
             yield break;
         }
+        Rm = Rm - jetM * delta;
+        out_speed.text = Verle().y.ToString();
         yield return new WaitForSeconds(delay);
         yield return StartCoroutine(PhysicFrame(delay));
     }
@@ -102,14 +123,26 @@ public class UiController : MonoBehaviour
 
     vect Verle()
     {
-        //calculate_accel();
-        return new vect();
+        vect res = new() {
+            x = rocket.transform.position.x,
+            y = rocket.transform.position.y
+        };
+       
+        vect a = calculate_accel(jetV, jetM, Rm, delta);
+        out_accel.text = a.y.ToString();
+
+       res.y = res.y + rocket.V * delta + 0.5 * a.y * math.pow(delta, 2);
+        rocket.V = rocket.V + 0.5 * (rocket.a * a.y) * delta;
+
+        rocket.a = a.y;
+        //rocket.transform.position = new Vector3((float) res.x, (float) res.y, 0);
+        return res;
     }
 
     vect calculate_accel(double jetV, double jetM, double Rm, double delta) {
         vect res = new()
         {
-            y = -((jetV * (jetM / delta) / Rm) - G)
+            y = -((jetV * (jetM * delta) / Rm) - G)
         };
         return res;
     }
