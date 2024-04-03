@@ -45,36 +45,37 @@ public class UiController : MonoBehaviour
 
     [SerializeField]
     Rocket rocket;
+    vect RocketPos;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜
     /// </summary>
     double Rm;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜ ˜˜˜˜˜˜
     /// </summary>
     double Fm;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜ ˜˜˜˜˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜
     /// </summary>
     double jetM;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜
     /// </summary>
     double jetV;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜
     /// </summary>
     double StartH;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜
     /// </summary>
     double G = 2.6;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜
     /// </summary>
     vect LandV;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜ ˜˜˜˜˜˜˜
     /// </summary>
     double MaxFF;
 
@@ -83,25 +84,26 @@ public class UiController : MonoBehaviour
     /// </summary>
     public double trust;
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜
     /// </summary>
     public vect v = new vect(0,0,0);
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    /// </summary>
-    public double h;       
+    /// ˜˜˜˜˜˜˜ ˜˜˜˜˜˜
+    /// </summary>   
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜˜
     /// </summary>
     public vect ac = new vect(0,0,0);
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜ ˜˜˜. ˜˜˜˜˜˜˜
     /// </summary>
     public double delta;
     /// <summary>
-    /// ï¿½ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    /// ˜˜˜-˜˜ ˜˜˜˜˜˜ ˜˜˜˜˜˜
     /// </summary>
     int FPS;
+
+    
 
     private Status status = Status.off;
 
@@ -131,21 +133,18 @@ public class UiController : MonoBehaviour
     }
     public void SceneStart()
     {
-
         v = new vect(0,0,0);
-        h = 0;
         ac = v;
             if (ReadData(out Fm, out Rm, out jetV, out jetM, out StartH, out G, out MaxFF, out LandV, out delta))
             {
+                RocketPos = new vect(0, StartH, 0);
                 //rocket.StartH = (float)StartH;
                 status = Status.work;
                 StartCoroutine(PhysicFrame((float)delta));
                 StartCoroutine(GraphicFrame());
-
-                Debug.Log($"ĞœĞ°ÑÑĞ° Ñ‚Ğ¾Ğ¿Ğ»Ğ¸Ğ²Ğ°: {Fm} \n ĞœĞ°ÑÑĞ° Ñ€Ğ¾ĞºĞµÑ‚Ñ‹: {Rm} \n Ğ¡ĞºĞ¾Ñ€Ğ¾ÑÑ‚ÑŒ ÑÑ‚Ñ€ÑƒĞ¸: {jetV} \n Ğ Ğ°ÑÑ…Ğ¾Ğ´ Ñ‚Ğ¾Ğ¿Ğ»Ğ¸Ğ²Ğ°: {jetM} \n ĞĞ°Ñ‡Ğ°Ğ»ÑŒĞ½Ğ°Ñ Ğ²Ñ‹ÑĞ¾Ñ‚Ğ°: {Hstart} Hstart \n Ğ£ÑĞºĞ¾Ñ€ĞµĞ½Ğ¸Ğµ ÑĞ²Ğ¾Ğ±Ğ¾Ğ´Ğ½Ğ¾Ğ³Ğ¾ Ğ¿Ğ°Ğ´ĞµĞ½Ğ¸Ñ: {G} \n ĞœĞ°ĞºÑĞ¸Ğ¼Ğ°Ğ»ÑŒĞ½Ñ‹Ğ¹ Ñ€Ğ°ÑÑ…Ğ¾Ğ´ Ñ‚Ğ¾Ğ¿Ğ»Ğ¸Ğ²Ğ°: {MaxFF} \n Ğ¡ĞºĞ¾Ñ€Ğ¾ÑÑ‚ÑŒ Ğ±ĞµĞ·Ğ¾Ğ¿Ğ°ÑĞ½Ğ¾Ğ¹ Ğ¿Ğ¾ÑĞ°Ğ´ĞºĞ¸: {Lv} \n delta {delta}");
             }
             else
-                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                Debug.Log("˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜");
     }
     public void ScenePause()
     {
@@ -175,9 +174,9 @@ public class UiController : MonoBehaviour
         out_accel.text = ac.ToString();
         out_Fuel.text = Fm.ToString();
         out_fuelFlow.text = jetM.ToString();
-        out_height.text = h.ToString();
+        out_height.text = RocketPos.y.ToString();
         out_speedd.text = v.y.ToString();
-        rocket?.UpdateFrame(new Vector3(0,(float)h,0));
+        rocket?.UpdateFrame(new Vector3(0,(float)RocketPos.y,0));
         GraphicFrameUpdate?.Invoke();
         yield return StartCoroutine(GraphicFrame());
     }
@@ -185,7 +184,7 @@ public class UiController : MonoBehaviour
     vect Verle(out vect a, vect v, double delta, double jetV, double jetM, double m)
     {
         a = calculate_accel(jetV, jetM, m, delta);
-        h = h + v.y * delta + 0.5 * a.y * Math.Sqrt(delta);
+        RocketPos.y = RocketPos.y + v.y * delta + 0.5 * a.y * Math.Sqrt(delta);
         v.y = v.y + 0.5 * (ac.y + a.y) * delta;
 
         return v;
@@ -194,7 +193,7 @@ public class UiController : MonoBehaviour
     {
         a = calculate_accel(jetV, jetM, m, delta);
         v = v + a * delta;
-        h = h + v.y * delta;
+        RocketPos.y = RocketPos.y + v.y * delta;
         return v;
     }
 
@@ -202,7 +201,7 @@ public class UiController : MonoBehaviour
     {
         vect accel = new()
         {
-            y = jetV * jetM / Rm //- G 
+            y = jetV * jetM / Rm - G
         };
         return accel;
     }
@@ -242,24 +241,24 @@ public class UiController : MonoBehaviour
         }
         public static vect operator *(double c, vect a)
         {
-            vect h = new vect();
-            h.x = a.x * c;
-            h.y = a.y * c;
-            return h;
+            vect RocketPos.y = new vect();
+            RocketPos.y.x = a.x * c;
+            RocketPos.y.y = a.y * c;
+            return RocketPos.y;
         }
         public static vect operator *(vect a, double c)
         {
-            vect h = new vect();
-            h.x = a.x * c;
-            h.y = a.y * c;
-            return h;
+            vect RocketPos.y = new vect();
+            RocketPos.y.x = a.x * c;
+            RocketPos.y.y = a.y * c;
+            return RocketPos.y;
         }
         public static vect operator /(vect a, double c)
         {
-            vect h = new vect();
-            h.x = a.x / c;
-            h.y = a.y / c;
-            return h;
+            vect RocketPos.y = new vect();
+            RocketPos.y.x = a.x / c;
+            RocketPos.y.y = a.y / c;
+            return RocketPos.y;
         }
         public static vect operator -(vect a, vect b)
         {
