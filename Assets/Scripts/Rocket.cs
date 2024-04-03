@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
-    float StartHeght;
-    public double V = 0;
-    public double a = 0;
+    Vector3 StartHeght;
+    public float StartH { set { Scale = StartHeght.y / value; } }
+    float Scale;
+    
+    public void UpdateFrame(Vector3 pos)
+    {
+        gameObject.transform.position = pos * Scale;
+    }
 
     private void Start()
     {
-        StartHeght = transform.position.y;
+        StartHeght = transform.position;
     }
 }
