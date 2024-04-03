@@ -92,6 +92,8 @@ public class UiController : MonoBehaviour
                 status = Status.work;
                 StartCoroutine(PhysicFrame((float)delta));
                 StartCoroutine(GraphicFrame());
+
+                Debug.Log($"Масса топлива: {Fm} \n Масса рокеты: {Rm} \n Скорость струи: {jetV} \n Расход топлива: {jetM} \n Начальная высота: {Hstart} Hstart \n Ускорение свободного падения: {G} \n Максимальный расход топлива: {MaxFF} \n Скорость безопасной посадки: {Lv} \n delta {delta}");
             }
     }
 
@@ -131,7 +133,7 @@ public class UiController : MonoBehaviour
         vect a = calculate_accel(jetV, jetM, Rm, delta);
         out_accel.text = a.y.ToString();
 
-       res.y = res.y + rocket.V * delta + 0.5 * a.y * math.pow(delta, 2);
+        res.y = res.y + rocket.V * delta + 0.5 * a.y * math.pow(delta, 2);
         rocket.V = rocket.V + 0.5 * (rocket.a * a.y) * delta;
 
         rocket.a = a.y;
@@ -142,7 +144,7 @@ public class UiController : MonoBehaviour
     vect calculate_accel(double jetV, double jetM, double Rm, double delta) {
         vect res = new()
         {
-            y = -((jetV * (jetM * delta) / Rm) - G)
+            y = ((jetV * (jetM * delta) / Rm) - G)
         };
         return res;
     }
