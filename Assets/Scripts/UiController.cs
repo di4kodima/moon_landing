@@ -1,50 +1,46 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
+using XCharts.Runtime;
 
 public class UiController : MonoBehaviour
 {
-    [SerializeField]
-    TMP_InputField Fuel;
-    [SerializeField]
-    TMP_InputField RocketMass;
-    [SerializeField]
-    TMP_InputField jetSpeed;
-    [SerializeField]
-    TMP_InputField jetMass;
-    [SerializeField]
-    TMP_InputField HighStart;
-    [SerializeField]
-    TMP_InputField Gravity;
-    [SerializeField]
-    TMP_InputField MaxFuelFlow;
-    [SerializeField]
-    TMP_InputField LandingSpeed;
-    [SerializeField]
-    TMP_InputField delta_input;
+    #region SerializeFields
+    [SerializeField] TMP_InputField Fuel;
+    [SerializeField] TMP_InputField RocketMass;
+    [SerializeField] TMP_InputField jetSpeed;
+    [SerializeField] TMP_InputField jetMass;
+    [SerializeField] TMP_InputField HighStart;
+    [SerializeField] TMP_InputField Gravity;
+    [SerializeField] TMP_InputField MaxFuelFlow;
+    [SerializeField] TMP_InputField LandingSpeed;
+    [SerializeField] TMP_InputField delta_input;
 
-    [SerializeField]
-    TMP_Text out_speed;
+    [SerializeField] TMP_Text out_speed;
+    [SerializeField] TMP_Text out_accel;
+    [SerializeField] TMP_Text out_speedd;
+    [SerializeField] TMP_Text out_height;
+    [SerializeField] TMP_Text out_Fuel;
+    [SerializeField] TMP_Text out_fuelFlow;
 
-    [SerializeField]
-    TMP_Text out_accel;
-    [SerializeField] 
-    TMP_Text out_speedd;
-    [SerializeField]
-    TMP_Text out_height;
-    [SerializeField]
-    TMP_Text out_Fuel;
-    [SerializeField]
-    TMP_Text out_fuelFlow;
+    [SerializeField] LineChart VChart;
+    [SerializeField] LineChart AChart;
+    [SerializeField] LineChart FChart;
+    [SerializeField] LineChart TChart;
+    [SerializeField] LineChart HChart;
 
-    [SerializeField]
-    Rocket rocket;
+
+    [SerializeField] Rocket rocket;
+    #endregion
+
+    #region Params
     vect RocketPos;
     /// <summary>
     /// ˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜
@@ -53,7 +49,7 @@ public class UiController : MonoBehaviour
     /// <summary>
     /// ˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜ ˜˜˜˜˜˜
     /// </summary>
-    double Fm;
+    public double Fm = 100;
     /// <summary>
     /// ˜˜˜˜˜ ˜˜˜˜˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜
     /// </summary>
@@ -78,7 +74,6 @@ public class UiController : MonoBehaviour
     /// ˜˜˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜ ˜˜˜˜˜˜˜
     /// </summary>
     double MaxFF;
-
     /// <summary>
     /// 
     /// </summary>
@@ -88,10 +83,7 @@ public class UiController : MonoBehaviour
     /// </summary>
     public vect v = new vect(0,0,0);
     /// <summary>
-    /// ˜˜˜˜˜˜˜ ˜˜˜˜˜˜
-    /// </summary>   
-    /// <summary>
-    /// ˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜˜
+    /// 
     /// </summary>
     public vect ac = new vect(0,0,0);
     /// <summary>
@@ -99,11 +91,12 @@ public class UiController : MonoBehaviour
     /// </summary>
     public double delta;
     /// <summary>
-    /// ˜˜˜-˜˜ ˜˜˜˜˜˜ ˜˜˜˜˜˜
+    /// ˜˜˜˜˜˜˜˜
     /// </summary>
     int FPS;
 
-    
+    [SerializeField]
+    double angel = 90;
 
     private Status status = Status.off;
 
@@ -112,7 +105,13 @@ public class UiController : MonoBehaviour
         work,
         pause
     }
-
+    
+    List<vect> Varray = new();
+    List<double> Harray = new();
+    List<double> Farray = new();
+    List<double> Tarray = new();
+    List<vect> Aarray = new();
+    #endregion
 
     public event Action GraphicFrameUpdate;
     public bool ReadData(out double Fm, out double Rm, out double JetS, out double JetM, out double Hstart, out double G,out double MaxFF, out vect Ls, out double delta)
@@ -133,22 +132,71 @@ public class UiController : MonoBehaviour
     }
     public void SceneStart()
     {
-        v = new vect(0,0,0);
-        ac = v;
+        if (status == Status.off)
+        {
+            v = new vect(0, 0, 0);
+            ac = v;
+            Tarray = new();
+            Tarray.Add(0);
             if (ReadData(out Fm, out Rm, out jetV, out jetM, out StartH, out G, out MaxFF, out LandV, out delta))
             {
                 RocketPos = new vect(0, StartH, 0);
                 //rocket.StartH = (float)StartH;
+                VChart.series[0].data.Clear();
+                FChart.series[0].data.Clear();
+                HChart.series[0].data.Clear();
+                AChart.series[0].data.Clear();
+
                 status = Status.work;
                 StartCoroutine(PhysicFrame((float)delta));
                 StartCoroutine(GraphicFrame());
             }
             else
-                Debug.Log("˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜");
+                Debug.Log("Íå óäàëîñü ñïàðñèòü!˜˜˜˜˜˜");
+        }
+        if (status == Status.pause) 
+        {
+            status = Status.work;
+            StartCoroutine(PhysicFrame((float)delta));
+            StartCoroutine(GraphicFrame());
+        }
     }
+
+    public void StopProcess()
+    {
+        if (status != Status.off)
+        {
+            status = Status.off;
+        }
+    }
+
+    void FillChart(double[] x, double[] y, LineChart chart)
+    {
+        Serie serie = new();
+        SerieData serieData = new();
+        for(int i = 0; i <= x.Length; i++) 
+        {
+            serieData.data.Clear();
+            serieData.data.Add(x[i]);
+            serieData.data.Add(y[i]);
+            serie.AddSerieData(serieData);
+        }
+        chart.series.Clear();
+        chart.series.Add(serie);
+    }
+
+    void AddInChart(double x, double y, LineChart chart)
+    {
+        SerieData serieData = new();
+        serieData.data.Add(x);
+        serieData.data.Add(y);
+        chart.series[0].AddSerieData(serieData);
+    }
+
     public void ScenePause()
     {
-        status = Status.pause;
+        if(status == Status.work)
+            status = Status.pause;
     }
     IEnumerator PhysicFrame(float delta)
     {
@@ -156,28 +204,42 @@ public class UiController : MonoBehaviour
         {
             yield break;
         }
-        if(Fm <= 0)
-            yield break;
+        if(Fm < jetM * delta)
+        {
+            jetM = Fm / delta;
+        }
+        if (Fm == 0)
+            jetM = 0;
         v = Verle(out ac, v, delta, jetV, jetM, Rm + Fm);
+        Tarray.Add(Tarray[Tarray.Count-1] + delta);
+        Farray.Add(Fm);
+        Varray.Add(v);
+        Aarray.Add(ac);
+        Harray.Add(RocketPos.y);
         Fm = Fm - jetM * delta;
-        out_speed.text = v.ToString();
         yield return new WaitForSeconds(0.001f);
         yield return StartCoroutine(PhysicFrame(delta));
     }
 
     IEnumerator GraphicFrame() {
-        if (status == Status.off || status == Status.pause)
-        {
-            yield break;
+        if (Tarray.Count > 0) { 
+            AddInChart(Tarray.Last(), Varray.Last().y, VChart);
+            AddInChart(Tarray.Last(), Farray.Last(), FChart);
+            AddInChart(Tarray.Last(), Harray.Last(), HChart);
+            AddInChart(Tarray.Last(), Aarray.Last().y, AChart);
         }
-        yield return new WaitForSeconds(1/60);
         out_accel.text = ac.ToString();
         out_Fuel.text = Fm.ToString();
         out_fuelFlow.text = jetM.ToString();
         out_height.text = RocketPos.y.ToString();
         out_speedd.text = v.y.ToString();
-        rocket?.UpdateFrame(new Vector3(0,(float)RocketPos.y,0));
+        //rocket?.UpdateFrame(new Vector3(0,(float)RocketPos.y,0));
         GraphicFrameUpdate?.Invoke();
+        if (status == Status.off || status == Status.pause)
+        {
+            yield break;
+        }
+        yield return new WaitForSeconds(1/6);
         yield return StartCoroutine(GraphicFrame());
     }
 
@@ -186,7 +248,6 @@ public class UiController : MonoBehaviour
         a = calculate_accel(jetV, jetM, m, delta);
         RocketPos.y = RocketPos.y + v.y * delta + 0.5 * a.y * Math.Sqrt(delta);
         v.y = v.y + 0.5 * (ac.y + a.y) * delta;
-
         return v;
     }
     vect Eiler(out vect a, vect v, double delta, double jetV, double jetM, double m)
@@ -194,6 +255,8 @@ public class UiController : MonoBehaviour
         a = calculate_accel(jetV, jetM, m, delta);
         v = v + a * delta;
         RocketPos.y = RocketPos.y + v.y * delta;
+        Varray.Add(v);
+        Farray.Add(Fm);
         return v;
     }
 
@@ -201,7 +264,8 @@ public class UiController : MonoBehaviour
     {
         vect accel = new()
         {
-            y = jetV * jetM / Rm - G
+            x = (jetV * jetM / Rm) * Math.Cos(angel),
+            y = (jetV * jetM / Rm ) * Math.Sin(angel) - G
         };
         return accel;
     }
@@ -241,24 +305,24 @@ public class UiController : MonoBehaviour
         }
         public static vect operator *(double c, vect a)
         {
-            vect RocketPos.y = new vect();
-            RocketPos.y.x = a.x * c;
-            RocketPos.y.y = a.y * c;
-            return RocketPos.y;
+            vect h = new vect();
+            h.x = a.x * c;
+            h.y = a.y * c;
+            return h;
         }
         public static vect operator *(vect a, double c)
         {
-            vect RocketPos.y = new vect();
-            RocketPos.y.x = a.x * c;
-            RocketPos.y.y = a.y * c;
-            return RocketPos.y;
+            vect h = new vect();
+            h.x = a.x * c;
+            h.y = a.y * c;
+            return h;
         }
         public static vect operator /(vect a, double c)
         {
-            vect RocketPos.y = new vect();
-            RocketPos.y.x = a.x / c;
-            RocketPos.y.y = a.y / c;
-            return RocketPos.y;
+            vect h = new vect();
+            h.x = a.x / c;
+            h.y = a.y / c;
+            return h;
         }
         public static vect operator -(vect a, vect b)
         {
