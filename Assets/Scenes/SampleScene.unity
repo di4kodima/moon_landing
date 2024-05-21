@@ -12028,7 +12028,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 3530.58
   field of view: 8.571506
   orthographic: 0
   orthographic size: 5
@@ -20284,6 +20284,10 @@ PrefabInstance:
       propertyPath: out_fuelFlow
       value: 
       objectReference: {fileID: 669307685}
+    - target: {fileID: -7209604194746285610, guid: afd311d5539ac1344a73a24173c27ad3, type: 3}
+      propertyPath: Rocket_ParticlesSystem
+      value: 
+      objectReference: {fileID: 1232649737}
     - target: {fileID: 3776599440205492366, guid: afd311d5539ac1344a73a24173c27ad3, type: 3}
       propertyPath: m_Name
       value: UIController
@@ -20344,6 +20348,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c64df9554f807d458d74d62655c940b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &822350879 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7382245144152573725, guid: 758da7e27a30d794795eb508fd68a766, type: 3}
+  m_PrefabInstance: {fileID: 1831004956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &825821297
 GameObject:
   m_ObjectHideFlags: 0
@@ -22309,7 +22318,7 @@ PrefabInstance:
       objectReference: {fileID: 957795779}
     - target: {fileID: 5581812739919051676, guid: a39b1a632cb06ea4fafce3af29d16339, type: 3}
       propertyPath: SpawnRange
-      value: 206.7
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5581812739919051676, guid: a39b1a632cb06ea4fafce3af29d16339, type: 3}
       propertyPath: StarsCount
@@ -22317,15 +22326,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7894427037428604534, guid: a39b1a632cb06ea4fafce3af29d16339, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -24
       objectReference: {fileID: 0}
     - target: {fileID: 7894427037428604534, guid: a39b1a632cb06ea4fafce3af29d16339, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 7894427037428604534, guid: a39b1a632cb06ea4fafce3af29d16339, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2985
       objectReference: {fileID: 0}
     - target: {fileID: 7894427037428604534, guid: a39b1a632cb06ea4fafce3af29d16339, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26207,6 +26216,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket
       objectReference: {fileID: 0}
+    - target: {fileID: 8905034300596169725, guid: f2f1df51f5d54444b82e00518adfbea4, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905034300596169725, guid: f2f1df51f5d54444b82e00518adfbea4, type: 3}
+      propertyPath: CollisionModule.m_Planes.Array.data[0]
+      value: 
+      objectReference: {fileID: 822350879}
     - target: {fileID: 9093873289401031596, guid: f2f1df51f5d54444b82e00518adfbea4, type: 3}
       propertyPath: m_LocalPosition.z
       value: 138.92
@@ -31939,6 +31956,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230957599}
   m_CullTransparentMesh: 1
+--- !u!198 &1232649737 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8905034300596169725, guid: f2f1df51f5d54444b82e00518adfbea4, type: 3}
+  m_PrefabInstance: {fileID: 957795778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1234079020
 GameObject:
   m_ObjectHideFlags: 0
