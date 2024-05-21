@@ -39,20 +39,22 @@ public class UiController : MonoBehaviour
 
 
     [SerializeField] Rocket rocket;
+    [SerializeField] ParticleSystem Rocket_ParticlesSystem;
     #endregion
+
 
     #region Params
     vect RocketPos;
     /// <summary>
-    /// ˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     double Rm;
     /// <summary>
-    /// ˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜ ˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public double Fm = 100;
     /// <summary>
-    /// ˜˜˜˜˜ ˜˜˜˜˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     double _jetM;
 
@@ -66,23 +68,23 @@ public class UiController : MonoBehaviour
     }
 
     /// <summary>
-    /// ˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     double jetV;
     /// <summary>
-    /// ˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     double StartH;
     /// <summary>
-    /// ˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     double G = 2.6;
     /// <summary>
-    /// ˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     vect LandV;
     /// <summary>
-    /// ˜˜˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜ ˜˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     double MaxFF;
     /// <summary>
@@ -90,7 +92,7 @@ public class UiController : MonoBehaviour
     /// </summary>
     public double trust;
     /// <summary>
-    /// ˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public vect v = new vect(0,0,0);
     /// <summary>
@@ -98,11 +100,11 @@ public class UiController : MonoBehaviour
     /// </summary>
     public vect ac = new vect(0,0,0);
     /// <summary>
-    /// ˜˜˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜ ˜˜˜. ˜˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public double delta;
     /// <summary>
-    /// ˜˜˜˜˜˜˜˜
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     int FPS;
 
@@ -157,6 +159,8 @@ public class UiController : MonoBehaviour
             jetM -= FuelFlowStep;
         if (Input.GetKey(KeyCode.Space))
             jetM = 3;
+        if (jetM > 0) Rocket_ParticlesSystem.enableEmission = true;
+        else { Rocket_ParticlesSystem.enableEmission = false; }
     }
     public void SceneStart()
     {
@@ -183,7 +187,7 @@ public class UiController : MonoBehaviour
                 StartCoroutine(GraphicFrame());
             }
             else
-                Debug.Log("Íå óäàëîñü ñïàðñèòü!˜˜˜˜˜˜");
+                Debug.Log("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
         if (status == Status.pause) 
         {
@@ -252,8 +256,10 @@ public class UiController : MonoBehaviour
             Harray.Add(RocketPos.y);
             FFarray.Add(jetM);
             Fm = Fm - jetM * delta;
-            if (RocketPos.y < 0)
+            if (RocketPos.y < 0) {
                 status = Status.off;
+                Rocket_ParticlesSystem.enableEmission = false;
+            }
             yield return new WaitForSeconds(0.001f);
         }
     }
