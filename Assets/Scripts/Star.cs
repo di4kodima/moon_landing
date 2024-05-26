@@ -13,7 +13,6 @@ public class Star : MonoBehaviour, IStar
     {
         _target = target;
         _range = range;
-        Debug.Log("FDS");
         StartCoroutine("DistanceMonitoring");
     }
 
@@ -21,8 +20,7 @@ public class Star : MonoBehaviour, IStar
     {
         while (true)
         {
-            Debug.Log("GGGd");
-            if (Vector3.Distance( transform.position, _target.transform.position) > _range)
+            if (Vector2.Distance( (Vector2)transform.position, (Vector2)_target.transform.position) > _range)
                 OnBigDistance.Invoke(gameObject);
             yield return new WaitForSecondsRealtime(1);
         }

@@ -29,7 +29,7 @@ public class StarSpwnera : MonoBehaviour
 
     void ReplaceStar(GameObject star)
     {
-        star.transform.position = target.transform.position + new Vector3((Random.value - 0.5f) * 2 * SpawnRange, (Random.value - 0.5f) * 2 * SpawnRange, 0);
+        star.transform.position = target.transform.position + new Vector3((Random.value - 0.5f) * 2 * SpawnRange, (Random.value - 0.5f) * 2 * SpawnRange, transform.position.z);
         Debug.Log("lk");
     }
 
