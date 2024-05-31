@@ -16,6 +16,7 @@ public class InputController : MonoBehaviour
         GameStateMashine.Continue += OnGameStartWork;
         GameStateMashine.Stop += OnGameStopWork;
         GameStateMashine.TurnOf += OnGameStopWork;
+        GameStateMashine.StartClk += OnGameStopWork;
     }
 
     private void OnGameStartWork()

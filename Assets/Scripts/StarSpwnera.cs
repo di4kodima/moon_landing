@@ -7,8 +7,6 @@ using Random = UnityEngine.Random;
 public class StarSpwnera : MonoBehaviour
 {
     [SerializeField]
-    UiController controller;
-    [SerializeField]
     private GameObject target;
     [SerializeField]
     private GameObject StarPrefab;
@@ -29,7 +27,7 @@ public class StarSpwnera : MonoBehaviour
 
     void ReplaceStar(GameObject star)
     {
-        star.transform.position = target.transform.position + new Vector3((Random.value - 0.5f) * 2 * SpawnRange, (Random.value - 0.5f) * 2 * SpawnRange, transform.position.z);
+        star.transform.position = target.transform.position + new Vector3((Random.value - 0.5f) * SpawnRange + 200, (Random.value - 0.5f) * SpawnRange + 200, transform.position.z);
         Debug.Log("lk");
     }
 
@@ -40,7 +38,7 @@ public class StarSpwnera : MonoBehaviour
             GameObject NewStar = Instantiate(StarPrefab, transform);
             IStar StarCS= NewStar.GetComponent<IStar>();
 
-            NewStar.transform.position = new Vector3((Random.value - 0.5f)* 2 * SpawnRange, (Random.value - 0.5f) * 2 * SpawnRange,0);
+            NewStar.transform.position = target.transform.position + new Vector3((Random.value - 0.5f) * SpawnRange + 200, (Random.value - 0.5f) * SpawnRange + 200, transform.position.z); //new Vector3((Random.value - 0.5f)* 2 * SpawnRange, (Random.value - 0.5f) * 2 * SpawnRange,0);
             _stars.Add(StarCS);
             StarCS.OnBigDistance += ReplaceStar;
             StarCS.Activate(target,SpawnRange);

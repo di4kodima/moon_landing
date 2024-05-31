@@ -21,6 +21,7 @@ public class Model : MonoBehaviour
         get { return _jetM; }
         set
         {
+            FuelFlowChanged?.Invoke();
             if (value <= MaxFF && value >= 0)
                 _jetM = value;
         }
@@ -47,14 +48,15 @@ public class Model : MonoBehaviour
     #endregion
 
     public event Action OnPhisicFrame;
-
+    public event Action FuelFlowChanged;
 
     private void Awake()
     {
         GameStateMashine.Start += OnStart;
         GameStateMashine.Continue += OnContinue;
         GameStateMashine.Stop += OnPause;
-        GameStateMashine.TurnOf += OnTurnOf; 
+        GameStateMashine.TurnOf += OnTurnOf;
+        GameStateMashine.StartClk += OnClkStart;
     }
 
     private void OnStart()
@@ -64,7 +66,22 @@ public class Model : MonoBehaviour
             RocketPos.y = StartH;
             v = new vect(0,0,0);
             ac = v;
+            angle = 0;
+            Time = 0;
+            StartCoroutine(PhysicFrame((float)delta));
+        }
+    }
 
+    private void OnClkStart() 
+    {
+
+        if (_uiReader.ReadData(out Fm, out Rm, out JetV, out double jetm, out StartH, out G, out MaxFF, out LandV, out delta))
+        {
+            RocketPos.y = StartH;
+            G = 0;
+            v = new vect(0, 0, 0);
+            ac = v;
+            angle = 0;
             Time = 0;
             StartCoroutine(PhysicFrame((float)delta));
         }
@@ -100,7 +117,7 @@ public class Model : MonoBehaviour
 
             OnPhisicFrame?.Invoke();
 
-            yield return new WaitForSeconds(0.001f);
+            yield return new WaitForSeconds(1/60);
         }
 
         vect Verle(out vect a, vect v, double delta, double jetV, double jetM, double m)
@@ -132,6 +149,10 @@ public class Model : MonoBehaviour
 
     public double CialkivskiyByStep()
     {
-        return 2.3f * (JetV * Math.Log10((Rm + Fm) / Rm + Fm - jetM));
+        return v.y + 2.3f * (JetV * Math.Log10((Rm + Fm) / (Rm + Fm - jetM)));
+    }
+    public double Cialkivskiy()
+    {
+        return v.y + 2.3f * (JetV * Math.Log10((Rm + Fm) / (Rm)));
     }
 }

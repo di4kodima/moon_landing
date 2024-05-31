@@ -13,6 +13,10 @@ public class ButtonsController : MonoBehaviour
         GameStateMashine.StartGame();
     }
 
+    public void OnCialkovskiyButton_Clic()
+    {
+        GameStateMashine.StartClkIntg();
+    }
     public void OnEndButton_Click() 
     {
         GameStateMashine.TurnOfGame();

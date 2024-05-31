@@ -331,7 +331,7 @@ public class UiController : MonoBehaviour
 
         public override string ToString()
         {
-            return $"({x}, {y}, {z})";
+            return $"({string.Format("{0:f2}", x)}, {string.Format("{0:f2}", y)}, {string.Format("{0:f2}", z)})";
         }
 
         public vect(double x, double y, double z)

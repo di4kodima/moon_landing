@@ -20,6 +20,7 @@ public class ChartFiller : MonoBehaviour
     private void Awake()
     {
         GameStateMashine.Start += OnGameStart;
+        GameStateMashine.StartClk += OnGameStart;
         GameStateMashine.TurnOf += OnStopFill;
         GameStateMashine.Stop += OnStopFill;
     }
@@ -54,7 +55,7 @@ public class ChartFiller : MonoBehaviour
             AddInChart(model.Time, model.RocketPos.y, HChart, 0);
             AddInChart(model.Time, model.ac.y, AChart, 0);
             AddInChart(model.Time, model.jetM, FFChart, 0);
-            AddInChart(model.Time, model.CialkivskiyByStep(), FFChart, 0);
+            AddInChart(model.Time, model.CialkivskiyByStep(), ClkChart, 0);
 
         }
     }

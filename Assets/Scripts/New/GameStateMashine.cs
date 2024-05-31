@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameStateMashine
 {
-    public enum State { Start, Process, Pause, Of }
+    public enum State { Start, Process, Pause, Cialkovskiy, Of}
 
     static public event Action OnStateChanged;
 
@@ -16,6 +16,8 @@ public class GameStateMashine
     static public event Action Stop;
 
     static public event Action TurnOf;
+
+    static public event Action StartClk;
 
     private static State state;
 
@@ -42,10 +44,19 @@ public class GameStateMashine
 
     public static void StayOnPauseGame()
     {
-        if (state == State.Process)
+        if (state == State.Process || state == State.Cialkovskiy)
         {
             state = State.Pause;
             Stop?.Invoke();
+        }
+    }
+
+    public static void StartClkIntg()
+    {
+        if (state == State.Start || state == State.Of)
+        {
+            state = State.Cialkovskiy;
+            StartClk?.Invoke();
         }
     }
 }

@@ -6,8 +6,6 @@ using UnityEngine.UIElements;
 
 public class ClkButton : MonoBehaviour
 {
-    [SerializeField]
-    UiController controller;
     [SerializeField] GameObject Text;
 
     TMP_Text textMeshPro;
@@ -23,14 +21,10 @@ public class ClkButton : MonoBehaviour
         if (active)
         {
             active = false;
-            textMeshPro.text = "Проверка по Циалковксому выкл";
         }
         else
         {
             active = true;
-            textMeshPro.text = "Проверка по Циалковксому вкл";
         }
-
-        controller.UseCialkovskiy = active;
     }
 }
