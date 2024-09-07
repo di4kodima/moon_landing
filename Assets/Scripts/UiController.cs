@@ -3,11 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.UI;
 using XCharts.Runtime;
 
 public class UiController : MonoBehaviour
@@ -305,87 +301,5 @@ public class UiController : MonoBehaviour
         return accel;
     }
 
-    public struct vect
-    {
-        public double x, y, z;
 
-        public static explicit operator Vector3(vect v)
-        {
-            Vector3 res = new Vector3((float)v.x, (float)v.y, (float)v.z);
-            return res;
-        }
-
-        public static implicit operator vect(Vector3 v)
-        {
-            vect res = new vect(v.x, v.y, v.z);
-            return res;
-        }
-
-        public double modul()
-
-        { return Math.Sqrt(x * x + y * y + z * z); }
-        public double Mod
-        {
-            get { return Math.Sqrt(x * x + y * y + z * z); }
-        }
-
-        public override string ToString()
-        {
-            return $"({string.Format("{0:f2}", x)}, {string.Format("{0:f2}", y)}, {string.Format("{0:f2}", z)})";
-        }
-
-        public vect(double x, double y, double z)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-        public static vect operator +(vect a, vect b)
-        {
-            vect c = new vect();
-            c.x = a.x + b.x;
-            c.y = a.y + b.y;
-            return c;
-        }
-        public static double operator *(vect a, vect b)
-        {
-            return a.x * b.x + a.y * b.y;
-        }
-        public static vect operator *(double c, vect a)
-        {
-            vect h = new vect();
-            h.x = a.x * c;
-            h.y = a.y * c;
-            return h;
-        }
-        public static vect operator *(vect a, double c)
-        {
-            vect h = new vect();
-            h.x = a.x * c;
-            h.y = a.y * c;
-            return h;
-        }
-        public static vect operator /(vect a, double c)
-        {
-            vect h = new vect();
-            h.x = a.x / c;
-            h.y = a.y / c;
-            return h;
-        }
-        public static vect operator -(vect a, vect b)
-        {
-            vect c = new vect();
-            c.x = a.x - b.x;
-            c.y = a.y - b.y;
-            return c;
-        }
-        public static vect operator &(vect a, vect b)
-        {
-            vect c = new vect();
-            c.x = a.y * b.z - a.z * b.y;
-            c.y = a.z * b.x - a.x * b.z;
-            c.z = a.x * b.y - a.y * b.x;
-            return c;
-        }
-    }
 }

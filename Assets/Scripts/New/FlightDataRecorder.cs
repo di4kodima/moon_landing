@@ -31,6 +31,12 @@ public class FlightDataRecorder : MonoBehaviour
 
     }
 
+    private void OnDestroy() 
+    {
+        model.OnPhisicFrame -= Record;
+        GameStateMashine.Start -= ResetData;
+    }
+
     private void ResetData()
     {
         Varray.Clear();
@@ -49,7 +55,7 @@ public class FlightDataRecorder : MonoBehaviour
         Farray.Add(model.Fm);
         FFarray.Add(model.jetM);
         Tarray.Add(model.Time);
-        CLKarray.Add(model.CialkivskiyByStep());
+        CLKarray.Add(model.TsiolkovskyByStep());
         Aarray.Add(model.ac);
-    }    
+    }
 }

@@ -19,9 +19,18 @@ public class InputController : MonoBehaviour
         GameStateMashine.StartClk += OnGameStopWork;
     }
 
+    private void OnDestroy()
+    {
+        GameStateMashine.Start -= OnGameStartWork;
+        GameStateMashine.Continue -= OnGameStartWork;
+        GameStateMashine.Stop -= OnGameStopWork;
+        GameStateMashine.TurnOf -= OnGameStopWork;
+        GameStateMashine.StartClk -= OnGameStopWork;
+    }
+
     private void OnGameStartWork()
     {
-        StartCoroutine(UpdateInput());
+        StartCoroutine(UpdateRocketInput());
     }
 
     private void OnGameStopWork()
@@ -29,7 +38,7 @@ public class InputController : MonoBehaviour
         StopAllCoroutines();
     }
 
-    private IEnumerator UpdateInput()
+    private IEnumerator UpdateRocketInput()
     {
         while (true)
         {

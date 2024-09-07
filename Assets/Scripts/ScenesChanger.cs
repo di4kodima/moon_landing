@@ -10,6 +10,10 @@ public class ScenesChanger : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void StartClkTest()
+    {
+        SceneManager.LoadScene(2);
+    }
     public void mainMenu() {
         SceneManager.LoadScene(0);
     }

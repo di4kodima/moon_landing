@@ -19,8 +19,7 @@ public class OutInfo : MonoBehaviour
     private void Start()
     {
         model.OnPhisicFrame += UpdateText;
-        GameStateMashine.StartClk += StartGame;
-        GameStateMashine.Start += StartGame;
+        GameStateMashine.StartClk += StartClkGame;
     }
 
     private void UpdateText()
@@ -34,8 +33,8 @@ public class OutInfo : MonoBehaviour
         out_Time.text = "Время:" + string.Format("{0:f2}", model.Time);
     }
 
-    private void StartGame()
+    public void StartClkGame()
     {
-        out_MaxCLKSpeed.text = "Скорость:" + string.Format("{0:f2}", model.Cialkivskiy().ToString());
+        out_MaxCLKSpeed.text = "Макc. скорость по Циолковскому:" + string.Format("{0:f2}", model.Tsiolkovsky());
     }
 }

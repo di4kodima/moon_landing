@@ -16,10 +16,22 @@ public class RocketParticles : MonoBehaviour
     {
         GameStateMashine.Start += particleSystem.Play;
         GameStateMashine.StartClk += particleSystem.Play;
+        GameStateMashine.StartClk += FuelFlowChanged;
+        GameStateMashine.Continue += particleSystem.Play;
         GameStateMashine.Stop += particleSystem.Pause;
         GameStateMashine.TurnOf += particleSystem.Stop;
 
         model.FuelFlowChanged += FuelFlowChanged;
+    }
+
+    private void OnDestroy()
+    {
+        GameStateMashine.Start -= particleSystem.Play;
+        GameStateMashine.StartClk -= particleSystem.Play;
+        GameStateMashine.StartClk -= FuelFlowChanged;
+        GameStateMashine.Continue -= particleSystem.Play;
+        GameStateMashine.Stop -= particleSystem.Pause;
+        GameStateMashine.TurnOf -= particleSystem.Stop;
     }
 
     private void FuelFlowChanged()
