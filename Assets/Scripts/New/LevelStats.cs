@@ -19,9 +19,10 @@ namespace Assets.Scripts.New
 	[Serializable]
 	internal class LevelStats
 	{
+		static string path = Application.persistentDataPath + "/LevelsStats.json";
 		static LevelStats()
 		{
-			if (File.Exists(Application.persistentDataPath + "/LevelsStats.json"))
+			if (File.Exists(path))
 				LoadSetings();
 			else
 			{
@@ -35,17 +36,18 @@ namespace Assets.Scripts.New
 		{
 			string jsonData = JsonUtility.ToJson(new Serialization<FlightResult> { data = History });
 			Debug.Log(jsonData);
-			File.WriteAllText("C:\\Users\\Дмитрий\\Moon Landing\\Assets\\LevelsStats.json", jsonData);
+			File.WriteAllText(path, jsonData);
 			//File.WriteAllText(Application.persistentDataPath + "/LevelsStats.json", jsonData);
 		} 
 
 		static public void LoadSetings()
 		{
-			Debug.Log(Application.persistentDataPath + "/LevelsStats.json" + File.Exists(Application.persistentDataPath + "/LevelsStats.json"));
-			string jsonData = File.ReadAllText(Application.persistentDataPath + "/LevelsStats.json");
+			Debug.Log(File.Exists(path));
+			string jsonData = File.ReadAllText(path);
+			Debug.Log(jsonData);
 			History = JsonUtility.FromJson<Serialization<FlightResult>>(jsonData).data;
 			SaveSetings();
-			if (History != null)
+			if (History == null)
 			{
 				History = new List<FlightResult>();
 			}

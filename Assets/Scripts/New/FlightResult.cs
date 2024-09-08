@@ -12,14 +12,13 @@ namespace Assets.Scripts.New
 	{
 		public FlightResult(DateTime _dateTime, double _flightTime, double _remainingFuel, double _totalFuel) 
 		{
-			dateTime = _dateTime;
+			dateTime = _dateTime.ToString();
 			FlightTime = _flightTime;
 			RemainingFuel = _remainingFuel;
 			TotalFuel = _totalFuel;
 		}
-		public DateTime dateTime;
-		//public bool Result;
-		public double FlightTime { get; set; }
+		public string dateTime;
+		public double FlightTime;
 		public double RemainingFuel;
 		public double TotalFuel;
 		public double RemainingFuelTons { 

@@ -41,7 +41,7 @@ public class GameOverManager : MonoBehaviour
             if (Math.Abs(_model.v.x) > _model.LandV.x || Math.Abs(_model.v.y) > _model.LandV.y || Math.Abs(Mathf.Sin((float)_model.angle * Mathf.PI/180f)) > 0.5)
                 ResuultLabel.text = "Миссия потерпела крушение! \n-25млрд$";
             else 
-            { 
+            {
                 ResuultLabel.text = "Посадка прошла успешно!";
                 FlightResult flightResult = new FlightResult(DateTime.Now, FlightDataRecorder.Tarray.Last(), _model.Fm, _model.StartFm);
 				LevelStats.History.Add(flightResult);
@@ -50,7 +50,7 @@ public class GameOverManager : MonoBehaviour
                 Debug.Log(LevelStats.History.Count());
                 Debug.Log($"Лучшее время: {LevelStats.BestTimeFlight().FlightTime}, по топливу: ");
                 foreach (var flight in LevelStats.History)
-                    Debug.Log($"Дата полета: {flight.dateTime.ToShortDateString()}" +
+                    Debug.Log($"Дата полета: {flight.dateTime}" +
                         $", время полета: {flight.FlightTime}," +
                         $"Топлива сохранено: {flight.RemainingFuel}");
                 
